@@ -161,7 +161,7 @@ module Nokogiri
         # Nokogiri::XML::ParseOptions.
         def parse string_or_io, url = nil, encoding = nil, options = XML::ParseOptions::DEFAULT_HTML
 
-          options = Nokogiri::XML::ParseOptions.new(options) if Fixnum === options
+          options = Nokogiri::XML::ParseOptions.new(options) if Integer === options
           # Give the options to the user
           yield options if block_given?
 
@@ -216,12 +216,12 @@ module Nokogiri
       class EncodingReader # :nodoc:
         class SAXHandler < Nokogiri::XML::SAX::Document # :nodoc:
           attr_reader :encoding
-          
+
           def initialize
             @encoding = nil
             super()
           end
-    
+
           def start_element(name, attrs = [])
             return unless name == 'meta'
             attr = Hash[attrs]
@@ -234,7 +234,7 @@ module Nokogiri
               @encoding = m[1]
           end
         end
-        
+
         class JumpSAXHandler < SAXHandler
           def initialize(jumptag)
             @jumptag = jumptag

@@ -327,7 +327,7 @@ module Nokogiri
       # Also see related method +after+.
       def add_next_sibling node_or_tags
         raise ArgumentError.new("A document may not have multiple root nodes.") if (parent && parent.document?) && !node_or_tags.processing_instruction?
-        
+
         add_sibling :next, node_or_tags
       end
 
@@ -518,7 +518,7 @@ module Nokogiri
         end
 
         options ||= (document.html? ? ParseOptions::DEFAULT_HTML : ParseOptions::DEFAULT_XML)
-        if Fixnum === options
+        if Integer === options
           options = Nokogiri::XML::ParseOptions.new(options)
         end
         # Give the options to the user
@@ -875,7 +875,7 @@ module Nokogiri
       # Nokogiri::XML::ParseOptions object initialized from +options+, will be
       # passed to it, allowing more convenient modification of the parser options.
       def do_xinclude options = XML::ParseOptions::DEFAULT_XML, &block
-        options = Nokogiri::XML::ParseOptions.new(options) if Fixnum === options
+        options = Nokogiri::XML::ParseOptions.new(options) if Integer === options
 
         # give options to user
         yield options if block_given?
